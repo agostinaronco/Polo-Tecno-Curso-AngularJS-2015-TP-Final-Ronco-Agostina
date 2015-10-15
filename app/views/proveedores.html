@@ -1,0 +1,279 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="preloader" ng-show="layout.loading">
+        <i class="fa fa-refresh fa-5 fa-spin"></i>
+    </div>
+    <div ng-show="!layout.loading">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Clientes</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="form-group buscar">
+                <div class="icon-addon addon-md">
+                    <input id="buscar"  type="text" class="form-control"  placeholder="Buscar..." ng-model="buscar">
+                    <label for="buscar" class="glyphicon glyphicon-search" rel="tooltip" title="Buscar"></label>
+                </div>
+            </div>
+        </div>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCarga">Crear nuevo</button>
+        <button type="button" class="btn btn-danger" ng-click="borrarProveedores(paraEliminar)">Borrar seleccionados</button>
+      </div>
+  </div>
+</div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table">
+              <tr>
+                  <th></th>
+                  <th ng-click="sortType='nombre'; sortReverse = !sortReverse">Apellido y Nombre
+                    <span ng-show="sortType == 'nombre' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                    <span ng-show="sortType == 'nombre' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                  </th>
+                  <th>Teléfono</th>
+                  <th>Opciones</th>
+              </tr>
+              <tr ng-repeat="p in proveedores | filter: buscar | orderBy: sortType : sortReverse | filter:letterFilter">
+                  <td>
+                    <input type="checkbox">
+                  </td>
+                  <td>{{p.apellido}}, {{p.nombre}}</td>
+                  <td>{{p.telefono}}</td>
+                  <td>
+                    <span class="glyphicon glyphicon-pencil" ng-click="editarProveedores(p)"></span>
+                    <span class="glyphicon glyphicon-remove"  ng-click="borrarProveedor(p.id)"></span>
+                  </td>
+              </tr>
+          </table>
+          <!-- list ends -->
+        </div>
+      </div>
+
+
+<nav>
+<ul  class="pagination">
+ <li><a href="javascript:void(null)" ng-click="letterFilter = {apellido:  ''}">Todos</a></li>
+ <li><a href="javascript:void(null)" ng-click="letterFilter = {apellido:  'A'}">A</a></li>
+ <li><a href="javascript:void(null)" ng-click="letterFilter = {apellido: 'B'}">B</a></li>
+ <li><a href="javascript:void(null)" ng-click="letterFilter = {apellido: 'C'}">C</a></li>
+
+</ul>
+
+</nav>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalCarga" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Agregar nuevo contacto</h4>
+      </div>
+      <div class="modal-body"> <!-- ng-controller="validacionForm"-->
+        <form class="form-horizontal" id="nuevoprov" name="nuevoprov" ng-submit="cargarProveedores(nuevoprov)" method="post" novalidate>
+        <fieldset>
+        <!-- Text input-->
+        <div class="form-group" ng-class="{'has-error': nuevoprov.apellido.$invalid && nuevoprov.$dirty }">
+          <label class="col-md-4 control-label" for="apellido">Apellido</label>  
+          <div class="col-md-6">
+          <input id="apellido" name="apellido" type="text" class="form-control input-md" ng-model="apellido"  minlength="3" required>
+              <div class="validation text-danger" ng-messages="nuevoprov.apellido.$error" ng-if="nuevoprov.apellido.$touched || nuevoprov.$submitted">
+                <div ng-message="required" ng-show="nuevoprov.apellido.$error.required">Este campo es requerido</div>
+                <div ng-message="minlength" ng-show="nuevoprov.apellido.$error.minlength">El apellido debe tener al menos 3 caracteres</div>
+              </div>
+          </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group" ng-class="{'has-error': nuevoprov.nombre.$invalid && nuevoprov.$dirty }">
+          <label class="col-md-4 control-label" for="nombre">Nombre</label>  
+          <div class="col-md-6">
+          <input id="nombre" name="nombre" type="text" class="form-control input-md" ng-model="nombre"  minlength="3" required>
+              <div class="validation text-danger" ng-messages="nuevoprov.nombre.$error" ng-if="nuevoprov.nombre.$touched || nuevoprov.$submitted">
+                <div ng-message="required" ng-show="nuevoprov.nombre.$error.required">Este campo es requerido</div>
+                <div ng-message="minlength" ng-show="nuevoprov.nombre.$error.minlength">El nombre debe tener al menos 3 caracteres</div>
+              </div>
+          </div>
+        </div>
+
+
+        <!-- Text input-->
+        <div class="form-group" ng-class="{'has-error': nuevoprov.telefono.$invalid && nuevoprov.$dirty }">
+          <label class="col-md-4 control-label" for="telefono">Teléfono</label>  
+          <div class="col-md-6">
+          <input id="telefono" name="telefono" type="number" class="form-control input-md" ng-model="telefono"  minlength="5" required>
+              <div class="validation text-danger" ng-messages="nuevoprov.telefono.$error" ng-if="nuevoprov.telefono.$touched || nuevoprov.$submitted">
+                    <div ng-message="required" ng-show="nuevoprov.telefono.$error.required">Este campo es requerido</div>
+                    <div ng-message="minlength" ng-show="nuevoprov.telefono.$error.minlength">El telefono debe tener al menos 5 numeros</div>
+              </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group" ng-class="{'has-error': nuevoprov.email.$invalid && nuevoprov.$dirty }">
+          <label class="col-md-4 control-label" for="email">Email</label>  
+          <div class="col-md-6">
+          <input id="email" name="email" type="email" class="form-control input-md" ng-model="email"  minlength="5" required>
+              <div class="validation text-danger" ng-messages="nuevoprov.email.$error" ng-if="nuevoprov.email.$touched || nuevoprov.$submitted">
+                    <div ng-message="required" ng-show="nuevoprov.email.$error.required">Este campo es requerido</div>
+                    <div ng-message="email" ng-show="nuevoprov.email.$error.email">Debes ingresar una cuenta de correo válida</div>
+              </div>
+          </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group" ng-class="{'has-error': nuevoprov.direccion.$invalid && nuevoprov.$dirty }">
+          <label class="col-md-4 control-label" for="direccion">Dirección</label>  
+          <div class="col-md-6">
+          <input id="direccion" name="direccion" type="text" class="form-control input-md" ng-model="direccion"  minlength="3" required>
+              <div class="validation text-danger" ng-messages="nuevoprov.direccion.$error" ng-if="nuevoprov.direccion.$touched || nuevoprov.$submitted">
+                <div ng-message="required" ng-show="nuevoprov.direccion.$error.required">Este campo es requerido</div>
+                <div ng-message="minlength" ng-show="nuevoprov.direccion.$error.minlength">El direccion debe tener al menos 3 caracteres</div>
+              </div>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label"> </label>
+          <div class="col-md-4">
+            <button id="guardarProv" name="guardarProv" class="btn btn-primary" ng-disabled="nuevoprov.$invalid">Guardar</button>
+          </div>
+        </div>
+        </fieldset>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Agregar nuevo contacto</h4>
+      </div>
+      <div class="modal-body"> <!-- ng-controller="validacionForm"-->
+        
+        <form class="form-horizontal" id="editProv" name="editProv" ng-submit="submitEdit(editProv)" novalidate>
+        <fieldset>
+        <!-- Text input-->
+        <div class="form-group" ng-class="{'has-error': nuevoprov.apellido.$invalid && nuevoprov.$dirty }">
+          <label class="col-md-4 control-label" for="apellido">Apellido</label>  
+          <div class="col-md-6">
+          <input id="apellido" name="apellido" type="text" class="form-control input-md" ng-model="apellido"  minlength="3" required>
+              <div class="validation text-danger" ng-messages="nuevoprov.apellido.$error" ng-if="nuevoprov.apellido.$touched || nuevoprov.$submitted">
+                <div ng-message="required" ng-show="nuevoprov.apellido.$error.required">Este campo es requerido</div>
+                <div ng-message="minlength" ng-show="nuevoprov.apellido.$error.minlength">El apellido debe tener al menos 3 caracteres</div>
+              </div>
+          </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group" ng-class="{'has-error': nuevoprov.nombre.$invalid && nuevoprov.$dirty }">
+          <label class="col-md-4 control-label" for="nombre">Nombre</label>  
+          <div class="col-md-6">
+          <input id="nombre" name="nombre" type="text" class="form-control input-md" ng-model="nombre"  minlength="3" required>
+              <div class="validation text-danger" ng-messages="nuevoprov.nombre.$error" ng-if="nuevoprov.nombre.$touched || nuevoprov.$submitted">
+                <div ng-message="required" ng-show="nuevoprov.nombre.$error.required">Este campo es requerido</div>
+                <div ng-message="minlength" ng-show="nuevoprov.nombre.$error.minlength">El nombre debe tener al menos 3 caracteres</div>
+              </div>
+          </div>
+        </div>
+
+
+        <!-- Text input-->
+        <div class="form-group" ng-class="{'has-error': nuevoprov.telefono.$invalid && nuevoprov.$dirty }">
+          <label class="col-md-4 control-label" for="telefono">Teléfono</label>  
+          <div class="col-md-6">
+          <input id="telefono" name="telefono" type="number" class="form-control input-md" ng-model="telefono"  minlength="5" required>
+              <div class="validation text-danger" ng-messages="nuevoprov.telefono.$error" ng-if="nuevoprov.telefono.$touched || nuevoprov.$submitted">
+                    <div ng-message="required" ng-show="nuevoprov.telefono.$error.required">Este campo es requerido</div>
+                    <div ng-message="minlength" ng-show="nuevoprov.telefono.$error.minlength">El telefono debe tener al menos 5 numeros</div>
+              </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group" ng-class="{'has-error': nuevoprov.email.$invalid && nuevoprov.$dirty }">
+          <label class="col-md-4 control-label" for="email">Email</label>  
+          <div class="col-md-6">
+          <input id="email" name="email" type="email" class="form-control input-md" ng-model="email"  minlength="5" required>
+              <div class="validation text-danger" ng-messages="nuevoprov.email.$error" ng-if="nuevoprov.email.$touched || nuevoprov.$submitted">
+                    <div ng-message="required" ng-show="nuevoprov.email.$error.required">Este campo es requerido</div>
+                    <div ng-message="email" ng-show="nuevoprov.email.$error.email">Debes ingresar una cuenta de correo válida</div>
+              </div>
+          </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group" ng-class="{'has-error': nuevoprov.direccion.$invalid && nuevoprov.$dirty }">
+          <label class="col-md-4 control-label" for="direccion">Dirección</label>  
+          <div class="col-md-6">
+          <input id="direccion" name="direccion" type="text" class="form-control input-md" ng-model="direccion"  minlength="3" required>
+              <div class="validation text-danger" ng-messages="nuevoprov.direccion.$error" ng-if="nuevoprov.direccion.$touched || nuevoprov.$submitted">
+                <div ng-message="required" ng-show="nuevoprov.direccion.$error.required">Este campo es requerido</div>
+                <div ng-message="minlength" ng-show="nuevoprov.direccion.$error.minlength">El direccion debe tener al menos 3 caracteres</div>
+              </div>
+          </div>
+        </div>
+
+        <input id="id" name="id" type="hidden" class="form-control input-md" ng-model="id"  minlength="3" required>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label"> </label>
+          <div class="col-md-4">
+            <button id="editprov" name="editprov" class="btn btn-primary" >Modificar Datos</button>
+          </div>
+        </div>
+        </fieldset>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- calc -->
+<div class="modal fade" id="modalCalculadora" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">calculadora</h4>
+      </div>
+      <div class="modal-body"> <!-- ng-controller="validacionForm"-->
+        <div class="row">
+        <div class="col-md-12">
+          <h4>Directiva: calc</h4>
+          <div calc></div>
+          <p>
+            Ejemplo de direcitiva.
+          </p>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</div>
