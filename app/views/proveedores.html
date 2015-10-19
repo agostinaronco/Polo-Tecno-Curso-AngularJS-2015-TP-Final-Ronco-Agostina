@@ -6,7 +6,7 @@
     <div ng-show="!layout.loading">
       <div class="row">
         <div class="col-md-12">
-          <h1>Clientes</h1>
+          <h2>Clientes</h2>
         </div>
       </div>
 
@@ -39,7 +39,7 @@
                   <th>Teléfono</th>
                   <th>Opciones</th>
               </tr>
-              <tr ng-repeat="p in proveedores | filter: buscar | orderBy: sortType : sortReverse | filter:letterFilter">
+              <tr ng-repeat="p in proveedores | filter: buscar | orderBy: sortType : sortReverse ">
                   <td>
                     <input type="checkbox">
                   </td>

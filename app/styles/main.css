@@ -3,10 +3,9 @@ body {
   padding: 0px;
 }
 
-.preloader {
-  font-size: 120px;
-  color: grey;
-  text-align: center;
+h1, .h1{
+  font-weight: 400;
+  text-transform: uppercase;
 }
 
 .input-group .icon-addon .form-control {
@@ -46,6 +45,23 @@ body {
 
 .buscar input{
 padding-left: 35px;
+}
+
+
+.coverAll{
+  height: 90vh;
+}
+
+.msjInicio h1{
+  margin-top: 20%;
+}
+
+.msjInicio p{
+  margin: 5% 0 20% 0;
+}
+
+.imgInicio img{
+  margin-top: 55%
 }
 
 
@@ -151,3 +167,4 @@ padding-left: 35px;
   margin: auto;
   position: absolute;
 }
+

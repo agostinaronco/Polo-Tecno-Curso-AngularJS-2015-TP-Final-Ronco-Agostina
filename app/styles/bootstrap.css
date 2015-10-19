@@ -1256,7 +1256,8 @@ h6 .small,
 }
 h1,
 .h1 {
-  font-size: 39px;
+  font-size: 60px;
+  line-height: 70px;
 }
 h2,
 .h2 {
@@ -1278,7 +1279,9 @@ h6,
 .h6 {
   font-size: 13px;
 }
-p {
+
+
+p 
   margin: 0 0 10.5px;
 }
 .lead {

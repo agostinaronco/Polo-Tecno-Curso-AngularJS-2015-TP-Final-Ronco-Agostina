@@ -7,8 +7,8 @@
  * # ProveedoresCtrl
  * Controller of the angularDashboardApp
  */
-angular.module('angularDashboardApp')
-  .controller('ProveedoresCtrl', function($scope, $http, $rootScope, Clientes, toaster, hotkeys){
+var app = angular.module('angularDashboardApp')
+  app.controller('ProveedoresCtrl', function($scope, $http, $rootScope, Clientes, toaster, hotkeys){
 
         $scope.proveedores = [];
 
@@ -105,4 +105,13 @@ angular.module('angularDashboardApp')
 
         $scope.listarProveedores();
 
+
+});
+
+  app.filter('filtroLetra', function() {
+   return function () {
+
+  };
+    
   });
+
