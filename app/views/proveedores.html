@@ -4,9 +4,14 @@
         <i class="fa fa-refresh fa-5 fa-spin"></i>
     </div>
     <div ng-show="!layout.loading">
-      <div class="row">
-        <div class="col-md-12">
+      <div class="row clientes">
+        <div class="col-md-6 col-sm-6 col-xs-6">
           <h2>Clientes</h2>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <div ng-controller='TimeCtrl' class="clock">
+            <p>{{clock | date:'h:mm'}}            {{clock | date:"EEEE d 'de' MMMM 'de' y"}}</p>
+          </div>
         </div>
       </div>
 
@@ -54,21 +59,6 @@
           <!-- list ends -->
         </div>
       </div>
-
-
-<nav>
-<ul  class="pagination">
- <li><a href="javascript:void(null)" ng-click="letterFilter = {apellido:  ''}">Todos</a></li>
- <li><a href="javascript:void(null)" ng-click="letterFilter = {apellido:  'A'}">A</a></li>
- <li><a href="javascript:void(null)" ng-click="letterFilter = {apellido: 'B'}">B</a></li>
- <li><a href="javascript:void(null)" ng-click="letterFilter = {apellido: 'C'}">C</a></li>
-
-</ul>
-
-</nav>
-
-
-
     </div>
   </div>
 </div>
@@ -82,7 +72,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Agregar nuevo contacto</h4>
       </div>
-      <div class="modal-body"> <!-- ng-controller="validacionForm"-->
+      <div class="modal-body">
         <form class="form-horizontal" id="nuevoprov" name="nuevoprov" ng-submit="cargarProveedores(nuevoprov)" method="post" novalidate>
         <fieldset>
         <!-- Text input-->
@@ -171,7 +161,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Agregar nuevo contacto</h4>
       </div>
-      <div class="modal-body"> <!-- ng-controller="validacionForm"-->
+      <div class="modal-body">
         
         <form class="form-horizontal" id="editProv" name="editProv" ng-submit="submitEdit(editProv)" novalidate>
         <fieldset>
@@ -260,16 +250,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">calculadora</h4>
+        <h4 class="modal-title" id="myModalLabel">Calculadora</h4>
       </div>
-      <div class="modal-body"> <!-- ng-controller="validacionForm"-->
+      <div class="modal-body">
         <div class="row">
-        <div class="col-md-12">
-          <h4>Directiva: calc</h4>
+        <div class="col-md-8 col-centered">
           <div calc></div>
-          <p>
-            Ejemplo de direcitiva.
-          </p>
         </div>
       </div>
 

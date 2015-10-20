@@ -9,7 +9,6 @@
  */
 var app = angular.module('angularDashboardApp')
   app.controller('ProveedoresCtrl', function($scope, $http, $rootScope, Clientes, toaster, hotkeys){
-
         $scope.proveedores = [];
 
         $scope.paraEliminar = [];
@@ -107,6 +106,14 @@ var app = angular.module('angularDashboardApp')
 
 
 });
+
+        app.controller('TimeCtrl', function($scope, $interval) {
+          var tick = function() {
+            $scope.clock = Date.now();
+          }
+          tick();
+          $interval(tick, 1000);
+        });
 
   app.filter('filtroLetra', function() {
    return function () {
