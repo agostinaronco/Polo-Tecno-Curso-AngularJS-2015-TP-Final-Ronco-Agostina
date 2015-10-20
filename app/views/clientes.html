@@ -5,38 +5,47 @@
     </div>
     <div ng-show="!layout.loading">
       <div class="row clientes">
-        <div class="col-md-6 col-sm-6 col-xs-6">
-          <h2>Clientes</h2>
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-6">
-          <div ng-controller='TimeCtrl' class="clock">
-            <p>{{clock | date:'h:mm'}}            {{clock | date:"EEEE d 'de' MMMM 'de' y"}}</p>
+        <div class="col-md-12">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <h2>Clientes</h2>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div ng-controller='TimeCtrl' class="clock">
+               <h4> {{clock | date:'h:mm'}} | {{clock | date:"EEEE',' d 'de' MMMM 'de' y" | capitalize}}</h4>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row search">
         <div class="col-md-12">
-        <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="form-group buscar">
-                <div class="icon-addon addon-md">
-                    <input id="buscar"  type="text" class="form-control"  placeholder="Buscar..." ng-model="buscar">
-                    <label for="buscar" class="glyphicon glyphicon-search" rel="tooltip" title="Buscar"></label>
+                   <div class="input-group">
+                     <div class="icon-addon addon-md">
+                        <label for="buscarC" class="glyphicon glyphicon-search" rel="tooltip" title="Buscar"></label>
+                        <input id="buscarC" ng-model="buscar" type="text" class="form-control" placeholder="Buscar" name="buscar">
+                      </div>
+                      <div class="input-group-btn">
+                        <button class="btn btn-danger" ng-click="buscar = '' " ><i class="glyphicon glyphicon-remove"></i></button>
+                      </div>
                 </div>
             </div>
         </div>
-      <div class="col-md-6 col-sm-6 col-xs-6">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCarga">Crear nuevo</button>
-        <button type="button" class="btn btn-danger" ng-click="borrarProveedores(paraEliminar)">Borrar seleccionados</button>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="btn-group btn-group-justified"> 
+          <a class="btn btn-success" data-toggle="modal" data-target="#modalCarga" role="button">Crear nuevo</a>
+          <a class="btn btn-danger" ng-click="borrarProveedores(clientsSelected.p)" role="button" ng-disabled="!checked">Eliminar seleccionados</a>
+        </div>
       </div>
   </div>
 </div>
 
       <div class="row">
         <div class="col-md-12">
-          <table class="table">
+          <table class="table clientesTable">
               <tr>
-                  <th></th>
+                  <th> <span class="glyphicon glyphicon-ok checkAll" ng-click="checkAll()"></button></th>
                   <th ng-click="sortType='nombre'; sortReverse = !sortReverse">Apellido y Nombre
                     <span ng-show="sortType == 'nombre' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                     <span ng-show="sortType == 'nombre' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
@@ -46,16 +55,17 @@
               </tr>
               <tr ng-repeat="p in proveedores | filter: buscar | orderBy: sortType : sortReverse ">
                   <td>
-                    <input type="checkbox">
+                    <input type="checkbox" checklist-model="clientsSelected.p" checklist-value="p" ng-model="checked">
                   </td>
                   <td>{{p.apellido}}, {{p.nombre}}</td>
                   <td>{{p.telefono}}</td>
                   <td>
-                    <span class="glyphicon glyphicon-pencil" ng-click="editarProveedores(p)"></span>
-                    <span class="glyphicon glyphicon-remove"  ng-click="borrarProveedor(p.id)"></span>
+                    <span class="glyphicon glyphicon-pencil edit" ng-click="editarProveedores(p)"></span> | <span class="glyphicon glyphicon-remove delete"  ng-click="borrarProveedor(p.id)"></span>
                   </td>
               </tr>
           </table>
+
+          <button ng-click="uncheckAll()" class="btn btn-default">Deshacer selección</button>
           <!-- list ends -->
         </div>
       </div>
@@ -65,7 +75,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="modalCarga" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  >
+<div class="modal fade" id="modalCarga" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -254,7 +264,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-        <div class="col-md-8 col-centered">
+        <div class="col-md-12 col-centered">
           <div calc></div>
         </div>
       </div>

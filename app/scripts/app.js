@@ -17,7 +17,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'cfp.hotkeys'
+    'cfp.hotkeys',
+    'checklist-model'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -25,9 +26,9 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/proveedores', {
-        templateUrl: 'views/proveedores.html',
-        controller: 'ProveedoresCtrl',
+      .when('/clientes', {
+        templateUrl: 'views/clientes.html',
+        controller: 'ClientesCtrl',
       })
       .otherwise({
         redirectTo: '/'

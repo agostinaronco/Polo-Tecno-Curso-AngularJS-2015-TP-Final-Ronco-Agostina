@@ -8,7 +8,7 @@
  * Controller of the angularDashboardApp
  */
 var app = angular.module('angularDashboardApp')
-  app.controller('ProveedoresCtrl', function($scope, $http, $rootScope, Clientes, toaster, hotkeys){
+  app.controller('ClientesCtrl', function($scope, $http, $rootScope, Clientes, toaster, hotkeys){
         $scope.proveedores = [];
 
         $scope.paraEliminar = [];
@@ -43,9 +43,7 @@ var app = angular.module('angularDashboardApp')
             });
          };
 
-
          $scope.editId = '';
-
 
         $scope.editarProveedores = function(p) {
             editProv.nombre.value = p.nombre;
@@ -74,7 +72,6 @@ var app = angular.module('angularDashboardApp')
         };        
 
         $scope.borrarProveedor = function(idProv) {
-            
             Clientes.borrar(idProv).then(function (res){
                 console.log("borrado");
                 toaster.pop('warning', "Borrado", "Se borró correctamente");
@@ -82,16 +79,6 @@ var app = angular.module('angularDashboardApp')
             });
         };
 
-        $scope.borrarProveedores = function(prov) {
-            
-            angular.forEach(prov, function(id){
-                Clientes.borrar(id).then(function (res){
-                    console.log("borrado");
-                    $scope.listarProveedores();  
-                    toaster.pop('warning', "Borrado", "Se borró correctamente");
-                });
-            });
-        };
 
         $scope.listarProveedores = function(){
             Clientes.listar().then(function (res){
@@ -104,16 +91,46 @@ var app = angular.module('angularDashboardApp')
 
         $scope.listarProveedores();
 
+          $scope.clientsSelected = {
+            p: []
+          };
 
-});
+          $scope.checkAll = function() {
+            $scope.clientsSelected.p = angular.copy($scope.proveedores);
+          };
+          $scope.uncheckAll = function() {
+            $scope.clientsSelected.p = [];
+          };
+       
+
+        $scope.borrarProveedores = function(prov) {
+            angular.forEach(prov, function(p){
+                console.log(JSON.stringify(p));
+                Clientes.borrar(p.id).then(function (res){
+                    console.log("borrado");
+                    $scope.listarProveedores();  
+                    toaster.pop('warning', "Borrado", "Se borró correctamente");
+                });
+            });
+        };
+
+        });
+
 
         app.controller('TimeCtrl', function($scope, $interval) {
-          var tick = function() {
-            $scope.clock = Date.now();
-          }
-          tick();
-          $interval(tick, 1000);
+              var tick = function() {
+                $scope.clock = Date.now();
+              }
+              tick();
+              $interval(tick, 1000);
         });
+
+
+        app.filter('capitalize', function() {
+            return function(input) {
+              return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+            }
+    });
 
   app.filter('filtroLetra', function() {
    return function () {

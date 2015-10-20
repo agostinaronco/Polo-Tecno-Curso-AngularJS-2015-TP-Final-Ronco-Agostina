@@ -33,7 +33,7 @@ h1, .h1{
 .icon-addon.addon-md .fa,
 .icon-addon .fa {
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     left: 10px;
     font-size: 14px;
     width: 20px;
@@ -47,6 +47,9 @@ h1, .h1{
 padding-left: 35px;
 }
 
+.deleteSearch{
+  margin-left: -5px;
+}
 
 .coverAll{
   height: 90vh;
@@ -65,13 +68,56 @@ padding-left: 35px;
 } 
 
 .clientes h2{
-  margin: 0px 0px 30px 0px;
+  margin: 0px 0px 40px 0px; 
 }
 
 .clock{
-  background-color: #F5F5F5;
-  padding: 10px 0px 3px;
+  background-color: #F1F1F1;
+  padding: 1px 0px 3px;
   text-align: center;
+}
+
+.search{
+  margin-bottom: 23px;
+}
+
+.clientesTable th {
+  background-color: #F1F1F1;
+
+}
+
+.clientesTable td:nth-child(4), .clientesTable th:nth-child(4){
+  text-align: center;
+}
+
+.clientesTable td:nth-child(1), .clientesTable th:nth-child(1){
+  text-align: center;
+}
+
+.clientesTable th:nth-child(2){
+  cursor:pointer;
+}
+
+
+.edit, .delete{
+  cursor:pointer;
+}
+
+.edit:hover{
+  color:#5bc0de;
+}
+
+.delete:hover{
+  color:#f04124;
+}
+
+
+.checkAll{
+  cursor:pointer;
+}
+
+.checkAll:hover{
+  color:#43ac6a;
 }
 
 /* Calculator */
