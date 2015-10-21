@@ -132,10 +132,3 @@ var app = angular.module('angularDashboardApp')
             }
     });
 
-  app.filter('filtroLetra', function() {
-   return function () {
-
-  };
-    
-  });
-

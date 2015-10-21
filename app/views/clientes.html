@@ -1,9 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="preloader" ng-show="layout.loading">
-        <i class="fa fa-refresh fa-5 fa-spin"></i>
-    </div>
-    <div ng-show="!layout.loading">
+    <div>
       <div class="row clientes">
         <div class="col-md-12">
           <div class="col-md-6 col-sm-6 col-xs-12">
@@ -35,7 +32,7 @@
       <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="btn-group btn-group-justified"> 
           <a class="btn btn-success" data-toggle="modal" data-target="#modalCarga" role="button">Crear nuevo</a>
-          <a class="btn btn-danger" ng-click="borrarProveedores(clientsSelected.p)" role="button" ng-disabled="!checked">Eliminar seleccionados</a>
+          <a class="btn btn-danger" ng-click="borrarProveedores(clientsSelected.p)" role="button">Eliminar seleccionados</a>
         </div>
       </div>
   </div>
@@ -55,7 +52,7 @@
               </tr>
               <tr ng-repeat="p in proveedores | filter: buscar | orderBy: sortType : sortReverse ">
                   <td>
-                    <input type="checkbox" checklist-model="clientsSelected.p" checklist-value="p" ng-model="checked">
+                    <input type="checkbox" checklist-model="clientsSelected.p" checklist-value="p">
                   </td>
                   <td>{{p.apellido}}, {{p.nombre}}</td>
                   <td>{{p.telefono}}</td>
@@ -64,8 +61,6 @@
                   </td>
               </tr>
           </table>
-
-          <button ng-click="uncheckAll()" class="btn btn-default">Deshacer selección</button>
           <!-- list ends -->
         </div>
       </div>
